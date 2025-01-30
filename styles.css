@@ -57,6 +57,10 @@ body {
 .menu input[type="range"] {
   width: 100%;
 }
+.menu h3 {
+  color: white;
+  font-size: 2rem;
+}
 .blocks {
   display: flex;
   gap: 10px;

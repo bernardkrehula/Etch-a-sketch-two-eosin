@@ -3,6 +3,8 @@ let divValue = document.querySelectorAll(".blocks div");
 let btns = document.querySelectorAll(".menu button");
 let colorMod = document.querySelector(".color-mode");
 let clear = document.querySelector('.clear');
+let size = document.querySelector('.menu h3');
+let slider = document.querySelector('.menu input[type="range"]')
 
 let color;
 
@@ -11,6 +13,7 @@ colorValue.addEventListener("change", () => {
   color = colorValue.value;
   console.log(color);
 });
+
 divValue.forEach((element) => {
   element.addEventListener("mousemove", () => {
     if (activeIndex === 0) {
@@ -23,7 +26,8 @@ divValue.forEach((element) => {
     }
   });
 });
-  clear.addEventListener('click', () => {
+
+clear.addEventListener('click', () => {
     divValue.forEach((element) => {
         element.classList.remove("colorStylediv");
         element.classList.remove("eraseColor");
@@ -38,3 +42,8 @@ btns.forEach((element, index) => {
     activeIndex = index;
   });
 });
+
+size.innerHTML = `${slider.value} X ${slider.value}`;
+slider.addEventListener('input', () => {
+    size.innerHTML = `${slider.value} X ${slider.value}`;
+})

@@ -5,32 +5,40 @@ let colorMod = document.querySelector(".color-mode");
 let clear = document.querySelector('.clear');
 let size = document.querySelector('.menu h3');
 let slider = document.querySelector('.menu input[type="range"]')
+let eraser = document.querySelector('.eraser');
 
 let color;
 
-let activeIndex = 0;
-
-color = colorValue.value;
-
-divValue.forEach((element) => {
-  element.addEventListener("mousemove", () => {
-    element.style.backgroundColor = color;
+colorMod.addEventListener('click', () => {
+  divValue.forEach((element) => {
+    element.addEventListener("mousemove", () => {
+      color = colorValue.value;
+      element.style.backgroundColor = color;
+      element.classList.remove('eraseColor');
+    });
   });
-});
+})
+eraser.addEventListener('click', () => {
+  divValue.forEach((element) => {
+    element.addEventListener("mousemove", () => {
+      element.classList.add('eraseColor');
+    });
+  });
+})
 
 clear.addEventListener('click', () => {
     divValue.forEach((element) => {
-        element.classList.remove("colorStylediv");
-        element.classList.remove("eraseColor");
+        element.classList.add('eraseColor');
     })
 })
 
 colorMod.classList.add("background");
-btns.forEach((element, index) => {
+colorMod.click();
+
+btns.forEach((element) => {
   element.addEventListener("click", () => {
     btns.forEach((el) => el.classList.remove("background"));
     element.classList.add("background");
-    activeIndex = index;
   });
 });
 

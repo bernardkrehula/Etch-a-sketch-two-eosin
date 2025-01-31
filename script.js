@@ -9,21 +9,12 @@ let slider = document.querySelector('.menu input[type="range"]')
 let color;
 
 let activeIndex = 0;
-colorValue.addEventListener("change", () => {
-  color = colorValue.value;
-  console.log(color);
-});
+
+color = colorValue.value;
 
 divValue.forEach((element) => {
   element.addEventListener("mousemove", () => {
-    if (activeIndex === 0) {
-      element.classList.add("colorStylediv");
-      element.classList.remove("eraseColor");
-    }
-    if (activeIndex === 2) {
-      element.classList.add("eraseColor");
-      element.classList.remove("colorStylediv");
-    }
+    element.style.backgroundColor = color;
   });
 });
 

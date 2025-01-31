@@ -6,8 +6,12 @@ let clear = document.querySelector('.clear');
 let size = document.querySelector('.menu h3');
 let slider = document.querySelector('.menu input[type="range"]')
 let eraser = document.querySelector('.eraser');
+let divBlocks = document.querySelector('.blocks');
+let div = document.createElement('div');
 
 let color;
+
+let sliderValue;
 
 colorMod.addEventListener('click', () => {
   divValue.forEach((element) => {
@@ -43,6 +47,23 @@ btns.forEach((element) => {
 });
 
 size.innerHTML = `${slider.value} X ${slider.value}`;
-slider.addEventListener('input', () => {
-    size.innerHTML = `${slider.value} X ${slider.value}`;
+slider.addEventListener('input', (e) => {
+    sliderValue = e.target.value;
+    size.innerHTML = `${sliderValue} X ${sliderValue}`;
+    createDiv()
+    //console.log(div.style.height)
 })
+let number = 0;
+function createDiv() {
+    
+   
+    div.style.height;
+    console.log(sliderValue)
+}
+
+for(let i = 0; i < 20; i++){
+  let clone = div.cloneNode(true);
+  divBlocks.appendChild(clone);
+}
+
+

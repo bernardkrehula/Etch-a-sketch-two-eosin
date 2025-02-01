@@ -7,32 +7,33 @@ let size = document.querySelector('.menu h3');
 let slider = document.querySelector('.menu input[type="range"]')
 let eraser = document.querySelector('.eraser');
 let divBlocks = document.querySelector('.blocks');
-let div = document.createElement('div');
 
 let color;
 
 let sliderValue;
 
-colorMod.addEventListener('click', () => {
-  divValue.forEach((element) => {
-    element.addEventListener("mousemove", () => {
-      color = colorValue.value;
-      element.style.backgroundColor = color;
-      element.classList.remove('eraseColor');
-    });
+/*for(let i = 0; i < 20; i++){
+  div = divBlocks.appendChild(document.createElement('div'));
+}*/
+color = colorValue.value;
+
+colorValue.addEventListener('change', () => {
+    color = colorValue.value;
+})
+divValue.forEach((element) => {
+  element.addEventListener("mousemove", () => {
+    element.style.backgroundColor = color;
   });
+});
+colorMod.addEventListener('click', () => {
+    color = colorValue.value;
 })
 eraser.addEventListener('click', () => {
-  divValue.forEach((element) => {
-    element.addEventListener("mousemove", () => {
-      element.classList.add('eraseColor');
-    });
-  });
+    color = 'white';
 })
-
 clear.addEventListener('click', () => {
     divValue.forEach((element) => {
-        element.classList.add('eraseColor');
+        element.style.backgroundColor = 'white';
     })
 })
 
@@ -50,20 +51,7 @@ size.innerHTML = `${slider.value} X ${slider.value}`;
 slider.addEventListener('input', (e) => {
     sliderValue = e.target.value;
     size.innerHTML = `${sliderValue} X ${sliderValue}`;
-    createDiv()
-    //console.log(div.style.height)
 })
-let number = 0;
-function createDiv() {
-    
-   
-    div.style.height;
-    console.log(sliderValue)
-}
 
-for(let i = 0; i < 20; i++){
-  let clone = div.cloneNode(true);
-  divBlocks.appendChild(clone);
-}
 
 

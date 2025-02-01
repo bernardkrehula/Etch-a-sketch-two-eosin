@@ -12,9 +12,6 @@ let color;
 
 let sliderValue;
 
-/*for(let i = 0; i < 20; i++){
-  div = divBlocks.appendChild(document.createElement('div'));
-}*/
 color = colorValue.value;
 
 colorValue.addEventListener('change', () => {
@@ -38,7 +35,8 @@ clear.addEventListener('click', () => {
 })
 
 colorMod.classList.add("background");
-colorMod.click();
+//Na click dugmeta (eraser ili colorMod) uradi querrySelector sa liste trazi element sa classom background
+//Ako takav element postoji makni mu classu background a dodaj kliknutom dugmetu
 
 btns.forEach((element) => {
   element.addEventListener("click", () => {
@@ -53,5 +51,18 @@ slider.addEventListener('input', (e) => {
     size.innerHTML = `${sliderValue} X ${sliderValue}`;
 })
 
+for(let i = 0; i < 20; i++){
+  divBlocks.appendChild(document.createElement('div'));
+}
+let divs = divBlocks.querySelectorAll('div');
+let height;
+let width;
 
+divs.forEach((element) => {
+  let elHeight = element.clientHeight;
+  let elWidth = element.clientWidth;
+  height = elHeight;
+  width = elWidth;
+  console.log(height)
+})
 

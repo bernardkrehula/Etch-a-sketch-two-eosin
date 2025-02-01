@@ -49,11 +49,38 @@ size.innerHTML = `${slider.value} X ${slider.value}`;
 slider.addEventListener('input', (e) => {
     sliderValue = e.target.value;
     size.innerHTML = `${sliderValue} X ${sliderValue}`;
-})
+    rows = sliderValue;
 
-for(let i = 0; i < 20; i++){
-  divBlocks.appendChild(document.createElement('div'));
+    makeRows(rows, cols);
+})
+let rows = slider.value;
+let cols = slider.value;
+console.log(rows)
+
+const container = document.querySelector(".container");
+
+function makeRows(rows, cols) {
+  divBlocks.style.setProperty('--grid-rows', rows);
+  divBlocks.style.setProperty('--grid-cols', cols);
+  for (c = 0; c < (rows * cols); c++) {
+    let cell = document.createElement("div");
+    divBlocks.appendChild(cell).className = "grid-item";
+  };
+};
+makeRows(rows, cols);
+
+
+
+
+
+
+
+/*function createDivs () {
+  for(let i = 0; i < 20; i++){
+    divBlocks.appendChild(document.createElement('div'));
+  }
 }
+createDivs();
 let divs = divBlocks.querySelectorAll('div');
 let height;
 let width;
@@ -65,4 +92,4 @@ divs.forEach((element) => {
   width = elWidth;
   console.log(height)
 })
-
+  */

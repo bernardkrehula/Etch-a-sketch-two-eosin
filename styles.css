@@ -62,19 +62,23 @@ body {
   font-size: 2rem;
 }
 .blocks {
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-  width: 550px;
-  height: 400px;
-  align-content: flex-start;
+  display: grid;
+  grid-gap: 10px;
+  grid-template-rows: repeat(var(--grid-rows), 1fr);
+  grid-template-columns: repeat(var(--grid-cols), 1fr);
 }
 .blocks div {
-  height: 100px;
-  width: 100px;
+  padding: 15px;
+  border: 1px solid #ddd;
+  text-align: center;
   background-color: white;
+}
+:root {
+  --grid-cols: 1;
+  --grid-rows: 1;
 }
 .background {
   background-color: white !important;
   color: black !important;
 }
+

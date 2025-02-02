@@ -1,5 +1,4 @@
 let colorValue = document.querySelector(".main input");
-let divValue = document.querySelectorAll(".grid-item");
 let btns = document.querySelectorAll(".menu button");
 let colorMod = document.querySelector(".color-mode");
 let clear = document.querySelector('.clear');
@@ -15,20 +14,52 @@ let sliderValue;
 
 color = colorValue.value;
 
+let row = slider.value;
+let column = slider.value;
+
+
+function makeRows(rows, cols) {
+  divBlocks.style.setProperty('--grid-rows', rows);
+  divBlocks.style.setProperty('--grid-cols', cols);
+  
+  for (c = 0; c < (rows * cols); c++) {
+    let cell = document.createElement("div");
+    divBlocks.appendChild(cell).className = "grid-item";
+  };
+};
+makeRows(row, column);
+
+size.innerHTML = `${slider.value} X ${slider.value}`;
+slider.addEventListener('input', (e) => {
+    sliderValue = e.target.value;
+    size.innerHTML = `${sliderValue} X ${sliderValue}`;
+    row = sliderValue;
+    column = sliderValue;
+    divBlocks.innerHTML = '';
+    makeRows(row, column);
+})
+
+let divValue = document.querySelectorAll('.grid-item');
+
 colorValue.addEventListener('change', () => {
     color = colorValue.value;
 })
 divValue.forEach((element) => {
-  element.addEventListener("mousemove", () => {
+  element.addEventListener("mousemove", (e) => {
+    e.target.classList.contains('grid-item')
     element.style.backgroundColor = color;
+    console.log('hello');
   });
 });
+
 colorMod.addEventListener('click', () => {
     color = colorValue.value;
 })
+
 eraser.addEventListener('click', () => {
     color = 'white';
 })
+
 clear.addEventListener('click', () => {
     divValue.forEach((element) => {
         element.style.backgroundColor = 'white';
@@ -45,39 +76,6 @@ btns.forEach((element) => {
     element.classList.add("background");
   });
 });
-
-let row = slider.value;
-let column = slider.value;
-
-size.innerHTML = `${slider.value} X ${slider.value}`;
-slider.addEventListener('input', (e) => {
-    sliderValue = e.target.value;
-    size.innerHTML = `${sliderValue} X ${sliderValue}`;
-    row = sliderValue;
-    column = sliderValue;
-    divBlocks.innerHTML = '';
-    makeRows(row, column);
-    changeDivSize();
-})
-
-function makeRows(rows, cols) {
-  divBlocks.style.setProperty('--grid-rows', rows);
-  divBlocks.style.setProperty('--grid-cols', cols);
-  
-  for (c = 0; c < (rows * cols); c++) {
-    let cell = document.createElement("div");
-    divBlocks.appendChild(cell).className = "grid-item";
-  };
-};
-makeRows(row, column);
-
-function changeDivSize() {
-  let div = document.querySelectorAll('.blocks div');
-  div.forEach((element) => {
-    element.style.padding = '1px';
-    console.log(element)
-  })
-}
 
 
 

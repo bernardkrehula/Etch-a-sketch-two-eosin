@@ -56,10 +56,8 @@ slider.addEventListener('input', (e) => {
     row = sliderValue;
     column = sliderValue;
     divBlocks.innerHTML = '';
-
-    slider.addEventListener('change', () => {
-      makeRows(row, column);
-    })
+    makeRows(row, column);
+    changeDivSize();
 })
 
 function makeRows(rows, cols) {
@@ -72,6 +70,14 @@ function makeRows(rows, cols) {
   };
 };
 makeRows(row, column);
+
+function changeDivSize() {
+  let div = document.querySelectorAll('.blocks div');
+  div.forEach((element) => {
+    element.style.padding = '1px';
+    console.log(element)
+  })
+}
 
 
 

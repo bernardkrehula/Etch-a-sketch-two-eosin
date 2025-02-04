@@ -30,6 +30,7 @@ function makeRows(rows, cols) {
 makeRows(row, column);
 
 size.innerHTML = `${slider.value} X ${slider.value}`;
+
 slider.addEventListener('input', (e) => {
     sliderValue = e.target.value;
     size.innerHTML = `${sliderValue} X ${sliderValue}`;
@@ -37,24 +38,54 @@ slider.addEventListener('input', (e) => {
     column = sliderValue;
     divBlocks.innerHTML = '';
     makeRows(row, column);
-    divValue = document.querySelectorAll('.grid-item');
-    generateRandomColor()
+    //Unutar div ima 16 kvadrata
+    //Pomjerim slajder
+    //Innerhtml = prazan string
+    //To znaci da vise nema kvadrata
+    //To znaci da vise nema event listenera koji su na pocetku bili (mouseover)
+    //Makerows funkcija 
+    //Ponovo ubaci u div nove kvadrate
+   
+    //Ostaje mi da zakacim event listenere ponovo
+    //Dohvati sve kvadrate koji su ponovo nastali (querrSelectorAll)
+    let newDivs = document.querySelectorAll('.grid-item');
+    newDivs.forEach((element) => {
+        element.addEventListener('mouseover', () => {
+          element.style.backgroundColor = color;
+          if(isRandomMode){
+            color = generateRandomColor();
+          }
+        })
+    })
+    clear.addEventListener('click', () => {
+      newDivs.forEach((element) => {
+          element.style.backgroundColor = 'white';
+          color = colorValue.value;
+          falseRandomMode()
+      })
+  })
+    //Za svaki kvadrat dodaj event listener
+    //Pokusaj da ne copypasteas kod
+    //Umjesto toga funckiju koja handle mouseover event izvuci van
 })
-
 let divValue = document.querySelectorAll('.grid-item');
+function handleColorValueUpdate() {
+  color = colorValue.value;
+} 
 
-colorValue.addEventListener('change', () => {
-    color = colorValue.value;
-})
+colorValue.addEventListener('change', handleColorValueUpdate)
+
 divValue.forEach((element) => {
-  element.addEventListener("mousemove", () => {
+  element.addEventListener("mouseover", function handleMouseOver() {
     element.style.backgroundColor = color;
-    generateRandomColor()
+    if(isRandomMode){
+      color = generateRandomColor();
+    }
   });
 });
 randomMode.addEventListener('click', () => {
    isRandomMode = true;
-})
+});
 
 colorMod.addEventListener('click', () => {
     color = colorValue.value;
@@ -83,6 +114,8 @@ btns.forEach((element) => {
     element.classList.add("background");
   });
 });
+
+
 let isRandomMode = false;
 
 function generateRandomColor() {
@@ -92,7 +125,6 @@ function generateRandomColor() {
       for (let i = 0; i < 6; i++) {
         randomColor += letters[Math.floor(Math.random() * 16)];
       }
-      color = randomColor;
       return randomColor;
     }
   }

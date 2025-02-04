@@ -71,7 +71,7 @@ body {
   height: 500px;
 }
 .blocks div {
-  border: 1px solid #ddd;
+  border: none;
   text-align: center;
   background-color: white;
 }

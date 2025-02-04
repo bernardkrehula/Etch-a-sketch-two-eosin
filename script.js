@@ -7,6 +7,7 @@ let slider = document.querySelector('.menu input[type="range"]')
 let eraser = document.querySelector('.eraser');
 let divBlocks = document.querySelector('.blocks');
 let menu = document.querySelector('.menu');
+let randomMode = document.querySelector('.random-mode');
 
 let color;
 
@@ -16,7 +17,6 @@ color = colorValue.value;
 
 let row = slider.value;
 let column = slider.value;
-
 
 function makeRows(rows, cols) {
   divBlocks.style.setProperty('--grid-rows', rows);
@@ -37,6 +37,8 @@ slider.addEventListener('input', (e) => {
     column = sliderValue;
     divBlocks.innerHTML = '';
     makeRows(row, column);
+    divValue = document.querySelectorAll('.grid-item');
+    generateRandomColor()
 })
 
 let divValue = document.querySelectorAll('.grid-item');
@@ -45,27 +47,32 @@ colorValue.addEventListener('change', () => {
     color = colorValue.value;
 })
 divValue.forEach((element) => {
-  element.addEventListener("mousemove", (e) => {
-    e.target.classList.contains('grid-item')
+  element.addEventListener("mousemove", () => {
     element.style.backgroundColor = color;
-    console.log('hello');
+    generateRandomColor()
   });
 });
+randomMode.addEventListener('click', () => {
+   isRandomMode = true;
+})
 
 colorMod.addEventListener('click', () => {
     color = colorValue.value;
+    falseRandomMode()
 })
 
 eraser.addEventListener('click', () => {
     color = 'white';
+    falseRandomMode()
 })
 
 clear.addEventListener('click', () => {
     divValue.forEach((element) => {
         element.style.backgroundColor = 'white';
+        color = colorValue.value;
+        falseRandomMode()
     })
 })
-
 colorMod.classList.add("background");
 //Na click dugmeta (eraser ili colorMod) uradi querrySelector sa liste trazi element sa classom background
 //Ako takav element postoji makni mu classu background a dodaj kliknutom dugmetu
@@ -76,6 +83,23 @@ btns.forEach((element) => {
     element.classList.add("background");
   });
 });
+let isRandomMode = false;
+
+function generateRandomColor() {
+    if(isRandomMode === true) {
+      let letters = '0123456789ABCDEF';
+      let randomColor = '#';
+      for (let i = 0; i < 6; i++) {
+        randomColor += letters[Math.floor(Math.random() * 16)];
+      }
+      color = randomColor;
+      return randomColor;
+    }
+  }
+  function falseRandomMode() {
+    isRandomMode = false;
+  }
+
 
 
 

@@ -38,49 +38,38 @@ slider.addEventListener('input', (e) => {
     column = sliderValue;
     divBlocks.innerHTML = '';
     makeRows(row, column);
-    //Unutar div ima 16 kvadrata
-    //Pomjerim slajder
-    //Innerhtml = prazan string
-    //To znaci da vise nema kvadrata
-    //To znaci da vise nema event listenera koji su na pocetku bili (mouseover)
-    //Makerows funkcija 
-    //Ponovo ubaci u div nove kvadrate
-   
-    //Ostaje mi da zakacim event listenere ponovo
-    //Dohvati sve kvadrate koji su ponovo nastali (querrSelectorAll)
+  
     let newDivs = document.querySelectorAll('.grid-item');
-    newDivs.forEach((element) => {
+    divValue = newDivs;
+
+    divValue.forEach((element) => {
         element.addEventListener('mouseover', () => {
-          element.style.backgroundColor = color;
-          if(isRandomMode){
-            color = generateRandomColor();
-          }
+          divElement = element;
+          handleMouseOver()
         })
     })
-    clear.addEventListener('click', () => {
-      newDivs.forEach((element) => {
-          element.style.backgroundColor = 'white';
-          color = colorValue.value;
-          falseRandomMode()
-      })
-  })
-    //Za svaki kvadrat dodaj event listener
-    //Pokusaj da ne copypasteas kod
-    //Umjesto toga funckiju koja handle mouseover event izvuci van
+    clear.addEventListener('click', clearDivs)
 })
 let divValue = document.querySelectorAll('.grid-item');
+
 function handleColorValueUpdate() {
   color = colorValue.value;
 } 
 
 colorValue.addEventListener('change', handleColorValueUpdate)
 
+function handleMouseOver() {
+  divElement.style.backgroundColor = color;
+  if(isRandomMode){
+    color = generateRandomColor();
+  }
+}
+let divElement;
+
 divValue.forEach((element) => {
-  element.addEventListener("mouseover", function handleMouseOver() {
-    element.style.backgroundColor = color;
-    if(isRandomMode){
-      color = generateRandomColor();
-    }
+  element.addEventListener("mouseover", () => {
+    divElement = element;
+    handleMouseOver()
   });
 });
 randomMode.addEventListener('click', () => {
@@ -96,15 +85,18 @@ eraser.addEventListener('click', () => {
     color = 'white';
     falseRandomMode()
 })
-
-clear.addEventListener('click', () => {
-    divValue.forEach((element) => {
-        element.style.backgroundColor = 'white';
-        color = colorValue.value;
-        falseRandomMode()
-    })
+function clearDivs () {
+  divValue.forEach((element) => {
+    element.style.backgroundColor = 'white';
+    color = colorValue.value;
+    falseRandomMode()
 })
+}
+
+clear.addEventListener('click', clearDivs)
+
 colorMod.classList.add("background");
+
 //Na click dugmeta (eraser ili colorMod) uradi querrySelector sa liste trazi element sa classom background
 //Ako takav element postoji makni mu classu background a dodaj kliknutom dugmetu
 

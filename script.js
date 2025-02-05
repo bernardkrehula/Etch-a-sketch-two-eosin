@@ -28,7 +28,7 @@ function makeRows(rows, cols) {
   };
 };
 makeRows(row, column);
-
+let divValue = document.querySelectorAll('.grid-item');
 size.innerHTML = `${slider.value} X ${slider.value}`;
 
 slider.addEventListener('input', (e) => {
@@ -39,18 +39,13 @@ slider.addEventListener('input', (e) => {
     divBlocks.innerHTML = '';
     makeRows(row, column);
   
-    let newDivs = document.querySelectorAll('.grid-item');
-    divValue = newDivs;
-
+    divValue = document.querySelectorAll('.grid-item');
     divValue.forEach((element) => {
-        element.addEventListener('mouseover', () => {
-          divElement = element;
-          handleMouseOver()
-        })
+        element.addEventListener('mouseover', () => handleMouseOver(element))
     })
     clear.addEventListener('click', clearDivs)
 })
-let divValue = document.querySelectorAll('.grid-item');
+
 
 function handleColorValueUpdate() {
   color = colorValue.value;
@@ -58,20 +53,17 @@ function handleColorValueUpdate() {
 
 colorValue.addEventListener('change', handleColorValueUpdate)
 
-function handleMouseOver() {
-  divElement.style.backgroundColor = color;
+function handleMouseOver(element) {
+  element.style.backgroundColor = color;
   if(isRandomMode){
     color = generateRandomColor();
   }
 }
-let divElement;
 
 divValue.forEach((element) => {
-  element.addEventListener("mouseover", () => {
-    divElement = element;
-    handleMouseOver()
-  });
+  element.addEventListener("mouseover", () => handleMouseOver(element));
 });
+
 randomMode.addEventListener('click', () => {
    isRandomMode = true;
 });
@@ -97,9 +89,6 @@ clear.addEventListener('click', clearDivs)
 
 colorMod.classList.add("background");
 
-//Na click dugmeta (eraser ili colorMod) uradi querrySelector sa liste trazi element sa classom background
-//Ako takav element postoji makni mu classu background a dodaj kliknutom dugmetu
-
 btns.forEach((element) => {
   element.addEventListener("click", () => {
     btns.forEach((el) => el.classList.remove("background"));
@@ -109,6 +98,7 @@ btns.forEach((element) => {
 
 
 let isRandomMode = false;
+let ranColor;
 
 function generateRandomColor() {
     if(isRandomMode === true) {
@@ -117,6 +107,7 @@ function generateRandomColor() {
       for (let i = 0; i < 6; i++) {
         randomColor += letters[Math.floor(Math.random() * 16)];
       }
+      ranColor = randomColor;
       return randomColor;
     }
   }
